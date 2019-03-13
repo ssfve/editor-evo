@@ -213,6 +213,20 @@ function click_submit() {
 	click_submit_url(controlURL, del_control_url);
 }
 
+function upload_pdf() {
+	document.getElementById("pdf_file").value
+	pdf_upload_url
+	$.ajax({
+		url: pdf_query_url,
+		data: {
+			pdf_name: pdf_name,
+		},
+		success: function(data) {
+			console.log("savePDFInfo Success")
+		}
+	});
+}
+
 function submit_pdf_info() {
 	pdf_name = document.getElementById("pdf_name").value;
 	crop_len = document.getElementById("crop_len").value;

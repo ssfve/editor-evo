@@ -57,8 +57,12 @@
 							<input type="text" id="source_detail" /><br/><br/>
 						</div>
 						<div>
-							<button type="button" onclick="submit_pdf_info()">pdf信息写入数据库</button>
+							<button type="button" onclick="submit_pdf_info()">pdf信息写入数据库</button><br/><br/>
 						</div>
+						<form method="POST" action="/games/savePDF">
+							<input type="file" id="pdf_file" /><br/><br/>
+							<input type="submit">
+						</form>
 					</div>
 					</div>
 				</div>
