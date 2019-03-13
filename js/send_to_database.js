@@ -48,27 +48,24 @@ var queryGameInfoEN = function(json) {
 var id = '';
 var type = '';
 var num = '';
-var textURL = 'http://180.76.244.130:3000/database/writeTextDB'
-var imgURL = 'http://180.76.244.130:3000/database/writeImgDB'
-var controlURL = 'http://180.76.244.130:3000/database/writeControlDB'
-var del_text_url = 'http://180.76.244.130:3000/database/delTextDB'
-var del_img_url = 'http://180.76.244.130:3000/database/delImgDB'
-var del_control_url = 'http://180.76.244.130:3000/database/delControlDB'
+var textURL = 'http://180.76.244.130:3000/database/writeTextDB';
+var imgURL = 'http://180.76.244.130:3000/database/writeImgDB';
+var controlURL = 'http://180.76.244.130:3000/database/writeControlDB';
+var del_text_url = 'http://180.76.244.130:3000/database/delTextDB';
+var del_img_url = 'http://180.76.244.130:3000/database/delImgDB';
+var del_control_url = 'http://180.76.244.130:3000/database/delControlDB';
 
 function click_submit_url(url_query, del_url_query) {
 	//id = document.getElementById("gameid").value
 	//type = document.getElementById("pageType").value
 	//loc = document.getElementById("location").value
-	var line_objects = document.getElementsByClassName("line_block")
+	var line_objects = document.getElementsByClassName("line_block");
 	//console.log(line_objects)
 	if(url_query === textURL) {
 		$.each(line_objects, function(index, content) {
-			line_num = index + 1
-			//alert(id)
-			//alert(type)
-			//alert(text_content)
-			text_content = document.getElementById("editor" + line_num).innerHTML
-			document.getElementById("response").innerHTML = ''
+			line_num = index + 1;
+			text_content = document.getElementById("editor" + line_num).innerHTML;
+			document.getElementById("response").innerHTML = '';
 			$.ajax({
 				url: url_query,
 				data: {
@@ -78,7 +75,6 @@ function click_submit_url(url_query, del_url_query) {
 					text: text_content
 				},
 				success: function(data) {
-					//alert('afd')
 					document.getElementById("response").innerHTML = data
 				}
 			});
@@ -87,16 +83,13 @@ function click_submit_url(url_query, del_url_query) {
 
 	if(url_query === controlURL) {
 		$.each(line_objects, function(index, content) {
-			line_num = index + 1
-			//alert(id)
-			//alert(type)
-			//alert(text_content)
-			line_id = 'line_'+line_num
-			line_text = document.getElementById(line_id).innerHTML
+			line_num = index + 1;
+			line_id = 'line_'+line_num;
+			line_text = document.getElementById(line_id).innerHTML;
 			line_text_arr = line_text.split(' ');
 			
-			flag_temp = (line_text_arr[1]).toLowerCase()
-			document.getElementById("response").innerHTML = ''
+			flag_temp = (line_text_arr[1]).toLowerCase();
+			document.getElementById("response").innerHTML = '';
 			$.ajax({
 				url: url_query,
 				data: {
@@ -114,11 +107,7 @@ function click_submit_url(url_query, del_url_query) {
 	}
 	if (del_url_query === del_control_url){
 		$.each(lineFlag, function(index, content) {
-			line_num = index + 1
-			//alert(id)
-			//alert(type)
-			//alert(text_content)
-			//flag_temp = lineFlag[index]
+			line_num = index + 1;
 			if (line_objects.length >= line_num){
 				line_id = 'line_'+line_num
 				line_text = document.getElementById(line_id).innerHTML
@@ -177,7 +166,6 @@ function click_submit_url(url_query, del_url_query) {
 						pageType: pageType
 					},
 					success: function(data) {
-						//alert('afd')
 						document.getElementById("response").innerHTML = data
 					}
 				});
@@ -187,10 +175,8 @@ function click_submit_url(url_query, del_url_query) {
 			var img_objects = document.getElementsByClassName("drawer_" + line_num)
 			//console.log(img_objects)
 			$.each(img_objects, function(index, content) {
-				img_num = index + 1
-				img_id = 'img_'+line_num+'_'+img_num
-				//alert(type)
-				//alert(text_content)
+				img_num = index + 1;
+				img_id = 'img_'+line_num+'_'+img_num;
 				image_path = document.getElementById(img_id).innerHTML.replace('<br>','')
 				document.getElementById("response").innerHTML = ''
 				$.ajax({
@@ -203,48 +189,67 @@ function click_submit_url(url_query, del_url_query) {
 						path: image_path
 					},
 					success: function(data) {
-						//alert('afd')
 						document.getElementById("response").innerHTML = data
 					}
 				});
 			});
 		});
 	}
-	
-};
+}
 
 function click_submit() {
-	gameid = document.getElementById("gameid").value
-	pageType = document.getElementById("pageType").value
+	gameid = document.getElementById("gameid").value;
+	pageType = document.getElementById("pageType").value;
 	if(gameid === '') {
-		alert('请输入gameid')
+		alert('请输入gameid');
 		return
-	} else {
-		//gameid = document.getElementById("gameid").value
-
 	}
 	if(pageType === '') {
-		alert('请选择pageType')
+		alert('请选择pageType');
 		return
-	} else {
-		//pageType = document.getElementById("pageType").value 
 	}
 	click_submit_url(textURL, del_text_url);
 	click_submit_url(imgURL, del_img_url);
 	click_submit_url(controlURL, del_control_url);
 }
 
+function submit_pdf_info() {
+	pdf_name = document.getElementById("pdf_name").value;
+	crop_len = document.getElementById("crop_len").value;
+	search_name = document.getElementById("search_name").value;
+	rulebook_name = document.getElementById("rulebook_name").value;
+	lang_name = document.getElementById("lang_name").value;
+	source_name = document.getElementById("source_name").value;
+	source_detail = document.getElementById("source_detail").value;
+	if(pdf_name === '') {
+		alert('请输入gameid');
+		return
+	}
+	if(pageType === '') {
+		alert('请选择pageType');
+	}
+	pdf_query_url = 'http://180.76.244.130:3000/games/savePDFInfo';
+	$.ajax({
+		url: pdf_query_url,
+		data: {
+			pdf_name: pdf_name,
+			crop_len: crop_len,
+			search_name: search_name,
+			rulebook_name: rulebook_name,
+			lang_name: lang_name,
+			source_name: source_name,
+			source_detail: source_detail
+		},
+		success: function(data) {
+			console.log("savePDFInfo Success")
+		}
+	});
+}
+
 function click_submit_from(number) {
-	var textURL = 'http://180.76.244.130:3000/games/getTextInfo'
-	//id = document.getElementById("gameid").value
-	//type = document.getElementById("pageType").value
-	//loc = document.getElementById("location").value  
-	temp_no = number + 1
-	//text_content = document.getElementById("editor"+temp_no).innerHTML
-	//alert(id)
-	//alert(type)
-	//alert(text_content)
-	document.getElementById("response").innerHTML = ''
+	textURL = 'http://180.76.244.130:3000/games/getTextInfo';
+	temp_no = number + 1;
+	document.getElementById("response").innerHTML = '';
 	$.ajax({
 		url: textURL,
 		data: {
@@ -254,16 +259,7 @@ function click_submit_from(number) {
 		},
 		dataType: 'json',
 		success: function(data) {
-			//alert(json.text_content)
-			//console.log(data.text_content)
-			//console.log(document.getElementById('editor'+temp_no).innerHTML)
-			//console.log(document.getElementById('editor'+temp_no))
-			//document.getElementById('editor'+temp_no).innerHTML = data.text_content
-			//console.log(temp_no)
-			//console.log(data.text_content)
 			$('#editor' + temp_no).html(data.text_content)
-			//console.log(document.getElementById('editor'+temp_no))
-			//document.getElementById("response").innerHTML = 'Success'
 		},
 		error: function(data) {
 			alert('记录不存在')
@@ -287,7 +283,7 @@ var writeTextbox = function(json) {
 
 var getPageLineNum = function(id, page) {
 	//$(obj).text(text)
-	var textURL = 'http://180.76.244.130:3000/games/getPageLineNum'
+	var textURL = 'http://180.76.244.130:3000/games/getPageLineNum';
 	//alert(obj)
 	return new Promise(function(resolve, reject) {
 		$.ajax({
