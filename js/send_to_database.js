@@ -56,9 +56,6 @@ var del_img_url = 'http://180.76.244.130:3000/database/delImgDB';
 var del_control_url = 'http://180.76.244.130:3000/database/delControlDB';
 
 function click_submit_url(url_query, del_url_query) {
-	//id = document.getElementById("gameid").value
-	//type = document.getElementById("pageType").value
-	//loc = document.getElementById("location").value
 	var line_objects = document.getElementsByClassName("line_block");
 	//console.log(line_objects)
 	if(url_query === textURL) {
@@ -214,13 +211,12 @@ function click_submit() {
 }
 
 function upload_pdf() {
-	document.getElementById("pdf_file").value
-	pdf_upload_url
+	console.log("upload started");
+	pdf_file = document.getElementById("pdf_file").value;
+	pdf_upload_url = 'http://180.76.244.130:3000/games/savePDF';
 	$.ajax({
-		url: pdf_query_url,
-		data: {
-			pdf_name: pdf_name,
-		},
+		url: pdf_upload_url,
+		data: pdf_file,
 		success: function(data) {
 			console.log("savePDFInfo Success")
 		}
